@@ -1,0 +1,18 @@
+[
+  {
+    "blockTypeId": 1,
+    "blockName": "HR 4037",
+    "density": 40
+  },
+  {
+    "blockTypeId": 2,
+    "blockName": "HR 4730",
+    "density": 47
+
+  },
+  {
+    "blockTypeId": 3,
+    "blockName": "HR 3737",
+    "density": 37
+  }
+]
