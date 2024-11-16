@@ -17,7 +17,7 @@ const getSuppliers = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const search = ((_a = req.query.search) === null || _a === void 0 ? void 0 : _a.toString()) || '';
         console.log("Search term:", search);
-        // Query for suppliers with blocks and associated block types
+        // Query for suppliers with blocks and associated block types, excluding processed blocks
         const suppliers = yield prisma.suppliers.findMany({
             where: {
                 supplierName: {
@@ -27,6 +27,9 @@ const getSuppliers = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             },
             include: {
                 Blocks: {
+                    where: {
+                        processed: false, // Exclude processed blocks
+                    },
                     include: {
                         blockType: true,
                     },
@@ -47,7 +50,7 @@ const getSuppliers = (req, res) => __awaiter(void 0, void 0, void 0, function* (
                 supplierName: supplier.supplierName,
                 totalBlocks,
                 blocksByBlockType,
-                canDelete: totalBlocks === 0,
+                canDelete: totalBlocks === 0, // Can delete if no unprocessed blocks
             };
         });
         res.json(result);

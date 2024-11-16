@@ -1,4 +1,4 @@
 export type SupplierFormData = {
-    supplierName: string;
+    supplierName: string ;
 
 }

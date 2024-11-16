@@ -26,6 +26,9 @@ const getBlockTypes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
             },
             include: {
                 blocks: {
+                    where: {
+                        processed: false, // Exclude processed blocks
+                    },
                     include: {
                         suppliers: true,
                     },

@@ -9,27 +9,30 @@ export const getSuppliers = async (req: Request, res: Response): Promise<void> =
     const search = req.query.search?.toString() || '';
     console.log("Search term:", search);
 
-    // Query for suppliers with blocks and associated block types
+    // Query for suppliers with blocks and associated block types, excluding processed blocks
     const suppliers = await prisma.suppliers.findMany({
       where: {
-          supplierName: {
-              contains: search,  // Use `contains` to search with the provided term
-              mode: "insensitive",  // Case insensitive search
-          },
+        supplierName: {
+          contains: search,  // Use `contains` to search with the provided term
+          mode: "insensitive",  // Case insensitive search
+        },
       },
       include: {
-          Blocks: {
-              include: {
-                  blockType: true,
-              },
+        Blocks: {
+          where: {
+            processed: false,  // Exclude processed blocks
           },
+          include: {
+            blockType: true,
+          },
+        },
       },
     });
 
     // Format the data for each supplier
     const result = suppliers.map((supplier) => {
       const totalBlocks = supplier.Blocks.length;
-      
+
       // Calculate the number of blocks for each block type
       const blocksByBlockType = supplier.Blocks.reduce((acc, block) => {
         const blockTypeName = block.blockType.blockName;
@@ -42,7 +45,7 @@ export const getSuppliers = async (req: Request, res: Response): Promise<void> =
         supplierName: supplier.supplierName,
         totalBlocks,
         blocksByBlockType,
-        canDelete: totalBlocks === 0,
+        canDelete: totalBlocks === 0,  // Can delete if no unprocessed blocks
       };
     });
 
@@ -51,6 +54,7 @@ export const getSuppliers = async (req: Request, res: Response): Promise<void> =
     res.status(500).json({ message: "Failed to fetch suppliers", error });
   }
 };
+
 
   
 

@@ -8,24 +8,29 @@ export const getBlockTypes = async (req: Request, res: Response): Promise<void> 
   try {
     const search = req.query.search?.toString() || '';
     console.log("Search term:", search);
+
     const blockTypes = await prisma.blockTypes.findMany({
       where: {
-          blockName: {
-              contains: search,  // Use `contains` to search with the provided term
-              mode: "insensitive",  // Case insensitive search
-          },
+        blockName: {
+          contains: search,  // Use `contains` to search with the provided term
+          mode: "insensitive",  // Case insensitive search
+        },
       },
       include: {
-          blocks: {
-              include: {
-                  suppliers: true,
-              },
+        blocks: {
+          where: {
+            processed: false,  // Exclude processed blocks
           },
+          include: {
+            suppliers: true,
+          },
+        },
       },
-  });
+    });
 
     const result = blockTypes.map((blockType) => {
       const totalBlocks = blockType.blocks.length;
+
       const blocksBySupplier = blockType.blocks.reduce((acc, block) => {
         const supplierName = block.suppliers.supplierName;
         acc[supplierName] = (acc[supplierName] || 0) + 1;
@@ -47,6 +52,7 @@ export const getBlockTypes = async (req: Request, res: Response): Promise<void> 
     res.status(500).json({ message: "Failed to fetch block types", error });
   }
 };
+
   
 
 export const createBlockType = async (req: Request, res: Response): Promise<void> => {

@@ -273,6 +273,7 @@ function BlockType() {
         <DialogActions>
           <Button
             onClick={() => setIsDialogOpen(false)}
+            autoFocus
             color="primary"
             sx={{
               color: "white",

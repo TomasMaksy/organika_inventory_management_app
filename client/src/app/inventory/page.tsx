@@ -340,10 +340,10 @@ const Inventory = () => {
             variant="contained"
             sx={{
               color: "white",
-              backgroundColor: "#6b7280",
+              backgroundColor: "#ef4444",
               "&:hover": {
                 opacity: 1,
-                backgroundColor: "#374151",
+                backgroundColor: "#dc2626",
               },
             }}
           >

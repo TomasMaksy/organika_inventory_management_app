@@ -1,4 +1,10 @@
-import React, { ChangeEvent, FormEvent, useState, useEffect } from "react";
+import React, {
+  ChangeEvent,
+  FormEvent,
+  useState,
+  useEffect,
+  useRef,
+} from "react";
 import Header from "@/app/(components)/Header";
 import HeightIcon from "@mui/icons-material/Height";
 import {
@@ -19,7 +25,7 @@ const CreateBlockModal = ({
   onClose,
   onCreate,
 }: CreateBlockModalProps) => {
-  const [formData, setFormData] = useState<BlockFormData>({
+  const initialFormData: BlockFormData = {
     blockTypeId: 0,
     height: 1600,
     width: 0,
@@ -29,15 +35,14 @@ const CreateBlockModal = ({
     processed: false,
     quantity: 1,
     supplierId: 0, // Ensure this starts at 0 or null
-  });
+  };
+
+  const [formData, setFormData] = useState<BlockFormData>(initialFormData);
 
   useEffect(() => {
-    // Reset supplierId to null when modal opens
     if (isOpen) {
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        supplierId: 0, // Reset supplierId to 'none' on modal open
-      }));
+      // Reset form data each time the modal opens
+      setFormData(initialFormData);
     }
   }, [isOpen]); // Only reset when modal visibility changes
 
@@ -89,7 +94,7 @@ const CreateBlockModal = ({
     // Call onCreate with the BlockFormData object
     try {
       await onCreate(blockData); // Pass the created object
-      onClose();
+      onClose(); // Close modal after creation
     } catch (error) {
       alert("Error creating blocks. Please try again.");
       console.error("Error creating blocks:", error); // Log the error for debugging
@@ -138,6 +143,15 @@ const CreateBlockModal = ({
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-20">
       <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+        <div className="absolute top-2 right-2">
+          <button
+            onClick={onClose}
+            className="text-xl text-gray-700 hover:text-gray-900"
+            aria-label="Close"
+          >
+            &times; {/* 'X' close button */}
+          </button>
+        </div>
         <Header name="Add a New Block" />
         <form onSubmit={handleSubmit} className="mt-5">
           {/* SUPPLIERS DROPDOWN */}
@@ -249,9 +263,9 @@ const CreateBlockModal = ({
                 <input
                   type="number"
                   name="length"
-                  placeholder="Length"
                   onChange={handleChange}
                   value={formData.length ?? ""}
+                  placeholder="Length"
                   className={inputCssStyles}
                   required
                 />
@@ -260,13 +274,36 @@ const CreateBlockModal = ({
             </div>
           </div>
 
-          <button
-            className="mt-3 bg-blue-500 text-white py-2 px-4 rounded-md"
-            type="submit"
-            disabled={isCreating}
-          >
-            {isCreating ? "Creating..." : "Create Block"}
-          </button>
+          {/* QUANTITY */}
+          <label htmlFor="quantity">Quantity</label>
+          <input
+            type="number"
+            name="quantity"
+            onChange={handleChange}
+            value={formData.quantity}
+            className={inputCssStyles}
+          />
+
+          <div className="flex flex-row justify-between gap-2 mt-3">
+            <div className="flex-1">
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-full py-2 text-white bg-gray-500 rounded-md"
+              >
+                Cancel
+              </button>
+            </div>
+            <div className="flex-1">
+              <button
+                type="submit"
+                disabled={isCreating}
+                className="w-full py-2 text-white bg-blue-500 rounded-md"
+              >
+                {isCreating ? "Creating..." : "Create Block(s)"}
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
