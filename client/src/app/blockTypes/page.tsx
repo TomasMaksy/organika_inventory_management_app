@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 import Header from "@/app/(components)/Header";
 import debounce from "lodash.debounce";
 import CreateBlockTypeModal from "./CreateBlockTypeModal";
+import BlocksModal from "./BlocksModal";
 import { BlockTypeFormData } from "./types";
 import {
   Dialog,
@@ -42,6 +43,13 @@ function BlockType() {
   const [blockTypeIdToDelete, setBlockTypeIdToDelete] = useState<number | null>(
     null
   );
+
+  // New state for BlocksModal
+  const [isBlocksModalOpen, setIsBlocksModalOpen] = useState(false);
+  const [blocksModalData, setBlocksModalData] = useState<{
+    supplier: string;
+    blockName: string;
+  } | null>(null);
 
   const handleSearchTermChange = debounce((value: string) => {
     setDebouncedSearchTerm(value);
@@ -123,6 +131,11 @@ function BlockType() {
 
   const toggleDropdown = (blockTypeId: number) => {
     setIsDropdownOpen(isDropdownOpen === blockTypeId ? null : blockTypeId);
+  };
+
+  const openBlocksModal = (blockName: string, supplier: string) => {
+    setBlocksModalData({ blockName, supplier });
+    setIsBlocksModalOpen(true);
   };
 
   if (isLoading) {
@@ -230,7 +243,10 @@ function BlockType() {
               </div>
               <hr />
               <div className="flex overflow-x-auto p-4 ml-2 mr-2 gap-2">
-                <button className="border border-blue-500 hover:bg-blue-100 text-blue-500 text-md font-bold py-1 px-3 rounded-2xl">
+                <button
+                  className="border border-blue-500 hover:bg-blue-100 text-blue-500 text-md font-bold py-1 px-3 rounded-2xl"
+                  onClick={() => openBlocksModal(blockType.blockName, "")}
+                >
                   Total blocks: {blockType.totalBlocks}
                 </button>
                 {Object.entries(blockType.blocksBySupplier).map(
@@ -238,6 +254,9 @@ function BlockType() {
                     <button
                       key={supplier}
                       className="bg-blue-500 hover:bg-blue-700 text-white text-md font-bold py-1 px-3 rounded-2xl"
+                      onClick={() =>
+                        openBlocksModal(blockType.blockName, supplier)
+                      }
                     >
                       {supplier}: {count}
                     </button>
@@ -248,6 +267,16 @@ function BlockType() {
           ))
         )}
       </div>
+
+      {/* BlocksModal Component */}
+      {isBlocksModalOpen && blocksModalData && (
+        <BlocksModal
+          supplier={blocksModalData.supplier}
+          blockName={blocksModalData.blockName}
+          isOpen={isBlocksModalOpen}
+          onClose={() => setIsBlocksModalOpen(false)}
+        />
+      )}
 
       <CreateBlockTypeModal
         isOpen={isModalOpen}

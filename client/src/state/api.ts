@@ -23,7 +23,10 @@ export interface Block {
     arrivalDate: Date;  // Date to match Prisma's DateTime field
     removalDate?: Date;  // Date to match Prisma's DateTime field
     processed: boolean;
+    suppliers: Supplier;
     supplierId: number;
+    supplierName: string;
+
 }
 
 export interface NewBlocks {
