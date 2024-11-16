@@ -1,17 +1,21 @@
 # Tomas Maksimovic | CS50x 2024 final project
 
-This project is a full-stack Inventory Management app developed in JavaScript with React, Tailwind, Nextjs, Redux and Node. I built it for my father who has a small company which processes big foam blocks and cuts required shapes of foam which are later used in matrasses, chairs, sofas and other furniture. 
+This is a full-stack inventory management app I built for my dad's small business. His company processes large foam blocks, cutting them into custom shapes used in things like mattresses, chairs, sofas, and other furniture. The app is designed to make managing inventory easier and more efficient, using modern tools like React, Tailwind, Next.js, Redux, and Node.js.
 
 ## Web App overview
-The first page is called dashboard, where we will be able to see all the most important information about the company, as of now there are just two cards actually usable (Latest Arrivals and Storage Capacity), but as the app is developed further and new functionalities are implemented we will make use of the other cards, but as of now they are filled with fake (dummy data) and therefore their opacity is reduced.
+The app opens with a dashboard, which serves as the central hub for all the company's key data. Right now, only two cards are fully functional: Latest Arrivals and Storage Capacity. These provide real-time information about recent inventory additions and the available storage space. The other cards are placeholders for future features, filled with dummy data for now, and have reduced opacity to indicate they’re not active yet.
 
-We are able to navigate different pages through the sidebar which is collapsible. There is also a dark mode functionality. 
+Navigation is simple, thanks to a collapsible sidebar that lets you switch between pages easily. There's also a built-in dark mode, which gives the app a sleek, modern look and makes it more comfortable to use in different lighting conditions.
 
 ### Inventory Page
-The next page is the Inventory where the forklift operator can add new blocks to storage, by specifying some required information like: Supplier, Block Type, Dimensions (in mm), other metadata will be added automatically like arrival date etc. This page displays all the blocks currently in storage, allows to mark blocks as processed (meaning they have left the storage and are being cut into desired shapes). There is option to filter blocks, search for a specific block as well as remove blocks, that were added by mistake (there is also a pop up window which will ask to confirm the deletion).
-### Block Types Page
-This page was designed to add, edit and remove different block types. Every block type used has it's own card which also contains buttons displaying how many blocks of that type there are in total and how many blocks of that type per supplier. By clicking these buttons we can view a pop up table with only the blocks in question shown.
-### Suppliers Page
-Very similar functionality to the block types page but considers suppliers instead of block types. Allows the same editing, addition, removal and quick filtering as the page before.
+This is the heart of the app. On the Inventory page, the forklift operator can log new foam blocks as they arrive. They enter essential details like the supplier name, block type, and dimensions (in millimeters). The app automatically adds other metadata, such as the arrival date, saving time and reducing errors.
 
-The other pages, do not have much functionality as of now. 
+The page displays all blocks currently in storage in a clean, easy-to-read layout. Operators can mark blocks as processed when they leave storage to be cut into specific shapes. There are tools to filter blocks, search for specific blocks, and delete blocks that were added by mistake. Deletions include a pop-up confirmation step to prevent accidental removal.
+### Block Types Page
+The Block Types page focuses on managing the different types of foam blocks used by the company. Each type is displayed as a card, showing key stats like the total number of blocks for that type and a breakdown by supplier. These numbers are clickable, opening a detailed pop-up table with just the relevant blocks listed.
+
+This page also allows you to add, edit, or remove block types as needed, ensuring everything stays organized and up-to-date. It is primarily used to check whether the needed blocks are in storage or should be ordered. There also is a search bar which allows you to quickly check the blocks you need
+### Suppliers Page
+The Suppliers page works similarly to the Block Types page but focuses on the company's suppliers instead. It lets you manage all supplier-related data, including adding, editing, and removing supplier entries. Like on the Block Types page, you can quickly filter blocks or view detailed tables with specific data about blocks from a given supplier.
+### Future plans
+While some of the other pages don’t have much functionality yet, they’re placeholders for future features. The goal is to expand the app with more tools and insights to help the business grow. Over time, I’ll add new features and integrate the data to make full use of the dashboard cards.
