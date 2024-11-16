@@ -11,11 +11,13 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@fontsource/lato": "^5.1.0",
     "@mui/icons-material": "^6.1.7",
-    "@mui/material": "^5.16.0",
+    "@mui/material": "^6.1.7",
     "@mui/system": "^6.1.7",
-    "@mui/x-data-grid": "^7.9.0",
+    "@mui/x-data-grid": "^7.22.2",
     "@reduxjs/toolkit": "^2.3.0",
+    "amqplib": "^0.10.4",
     "axios": "^1.7.2",
     "dotenv": "^16.4.5",
     "lodash": "^4.17.21",
@@ -29,6 +31,7 @@
     "react-redux": "^9.1.2",
     "recharts": "^2.12.7",
     "redux-persist": "^6.0.0",
+    "tailwind": "^4.0.0",
     "uuid": "^10.0.0"
   },
   "devDependencies": {

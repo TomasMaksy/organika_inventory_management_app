@@ -83,7 +83,7 @@ const Sidebar = () => {
       >
         <div>
           <Image
-            src="/logo blue.png" // Adjust the path to your image
+            src="/logo_blue.png" // Adjust the path to your image src
             alt="logo"
             width={30} // Width in pixels
             height={30} // Height in pixels
