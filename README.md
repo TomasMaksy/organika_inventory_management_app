@@ -1,5 +1,5 @@
 # Tomas Maksimovic | CS50x 2024 final project
-
+# Video Demo: https://youtu.be/Y7q8EIVMzfc
 This is a full-stack inventory management app I built for my dad's small business. His company processes large foam blocks, cutting them into custom shapes used in things like mattresses, chairs, sofas, and other furniture. The app is designed to make managing inventory easier and more efficient, using modern tools like React, Tailwind, Next.js, Redux, and Node.js.
 
 ## Web App overview
